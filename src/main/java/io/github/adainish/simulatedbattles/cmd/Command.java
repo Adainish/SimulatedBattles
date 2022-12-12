@@ -25,7 +25,6 @@ public class Command {
                         {
                             String playerArg = StringArgumentType.getString(cc, "player");
                             if (Util.getPlayerOptional(playerArg).isPresent()) {
-                                ServerPlayerEntity playerEntity = Util.getPlayerOptional(playerArg).get();
                                 Util.send(cc.getSource(), "&cPlease provide a valid npc and npc phase!");
                             } else {
                                 Util.send(cc.getSource(), "&cPlease provide a valid player! This player was not detected as online!");
