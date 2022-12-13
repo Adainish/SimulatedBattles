@@ -25,6 +25,7 @@ public class Config extends Configurable{
 
     public void populate() {
         try {
+            this.get().node("NPC", "Example", "PhaseOne", "NPCName").set("Example Phase");
             this.get().node("NPC", "Example", "PhaseOne", "Commands", "Win").set(Arrays.asList("broadcast %p% beat an npc"));
             this.get().node("NPC", "Example", "PhaseOne", "Commands", "Lose").set(Arrays.asList("broadcast %p% lost to an npc"));
             this.get().node("NPC", "Example", "PhaseOne", "Money", "Win").set(100);

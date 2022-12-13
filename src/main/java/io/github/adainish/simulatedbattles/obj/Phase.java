@@ -22,6 +22,7 @@ import java.util.List;
 public class Phase {
     public String npcID;
     public String identifier;
+    public String npcName = "";
     public Team team;
     public String winMessage;
     public String loseMessage;
@@ -34,7 +35,10 @@ public class Phase {
     public Phase(String npcID, String identifier) {
         this.npcID = npcID;
         this.identifier = identifier;
+
         //grab things from config
+
+        this.npcName = Config.getConfig().get().node("NPC", npcID, identifier, "NPCName").getString();
 
         this.prizeMoney = Config.getConfig().get().node("NPC", npcID, identifier, "Money", "Win").getInt();
         this.loseMoney = Config.getConfig().get().node("NPC", npcID, identifier, "Money", "Lose").getInt();
@@ -95,6 +99,7 @@ public class Phase {
             npcTrainer.getPokemonStorage().add(p);
         }
 
+        npcTrainer.setName(npcName);
         npcTrainer.getPersistentData().putBoolean("simulatedBattleNPC", true);
         npcTrainer.getPersistentData().putString("npcID", npcID);
         npcTrainer.getPersistentData().putString("phaseID", identifier);
