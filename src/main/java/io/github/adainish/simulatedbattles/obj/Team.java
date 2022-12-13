@@ -5,6 +5,7 @@ import com.pixelmonmod.pixelmon.api.pokemon.Nature;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonFactory;
 import com.pixelmonmod.pixelmon.api.pokemon.ability.AbilityRegistry;
+import com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender;
 import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
 import com.pixelmonmod.pixelmon.api.registries.PixelmonItems;
 import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;
@@ -66,6 +67,7 @@ public class Team {
         String pokemonName = Config.getConfig().get().node("NPC", npcID, phaseID, "Team", pokemonID, "PokemonName").getString();
         String form = Config.getConfig().get().node("NPC", npcID, phaseID, "Team", pokemonID, "Form").getString();
         int level = Config.getConfig().get().node("NPC", npcID, phaseID, "Team", pokemonID, "Level").getInt();
+        String gender = Config.getConfig().get().node("NPC", npcID, phaseID, "Team", pokemonID, "Gender").getString();
         String nickname = Config.getConfig().get().node("NPC", npcID, phaseID, "Team", pokemonID, "NickName").getString();
         boolean shiny = Config.getConfig().get().node("NPC", npcID, phaseID, "Team", pokemonID, "Shiny").getBoolean();
         String texture = Config.getConfig().get().node("NPC", npcID, phaseID, "Team", pokemonID, "Texture").getString();
@@ -152,10 +154,19 @@ public class Team {
                     SimulatedBattles.log.error("The ItemStack couldn't be created for npc pokemon %pokemon%".replaceAll("%pokemon%", pokemonName));
             }
 
+
+
         if (form != null && !form.isEmpty())
             if (pokemon.getSpecies().hasForm(form))
                 pokemon.setForm(form);
             else pokemon.setForm(pokemon.getSpecies().getDefaultForm());
+
+        if (gender != null && Gender.getGender(gender) != null)
+        {
+            pokemon.setGender(Gender.getGender(gender));
+        } else {
+            SimulatedBattles.log.error("The specified Gender for %p% was invalid, it's now set to the default generated gender!");
+        }
 
         pokemon.setShiny(shiny);
 

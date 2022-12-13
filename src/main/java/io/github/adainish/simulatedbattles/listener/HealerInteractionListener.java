@@ -17,10 +17,11 @@ public class HealerInteractionListener {
         Player player = PlayerStorage.getPlayer(event.player.getUniqueID());
         if (player != null) {
             Healer healer = new Healer();
-            healer.setWorldName(event.player.world.getDimensionKey().getRegistryName().toString());
+            healer.setWorldName(event.player.world.getDimensionKey().getLocation().toString());
             healer.setPosX(event.pos.getX());
             healer.setPosY(event.pos.getY());
-            healer.setPosZ(event.pos.getX());
+            healer.setPosZ(event.pos.getZ());
+            player.setHealer(healer);
             player.updateCache();
         }
     }

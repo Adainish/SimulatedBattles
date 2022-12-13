@@ -1,9 +1,13 @@
 package io.github.adainish.simulatedbattles.util;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.github.adainish.simulatedbattles.SimulatedBattles;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import org.apache.logging.log4j.core.LifeCycle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,19 @@ public class Util {
         }
 
         return formattedList;
+    }
+
+    public static void runCommand(String cmd) {
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        if (server == null) {
+            SimulatedBattles.log.warn("Could not execute commands, the server data could not be retrieved");
+            return;
+        }
+        try {
+            server.getCommandManager().getDispatcher().execute(cmd, server.getCommandSource());
+        } catch (CommandSyntaxException e) {
+            SimulatedBattles.log.error(e);
+        }
     }
 
     public static void send(CommandSource sender, String message) {

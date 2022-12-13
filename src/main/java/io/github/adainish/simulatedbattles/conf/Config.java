@@ -25,7 +25,16 @@ public class Config extends Configurable{
 
     public void populate() {
         try {
+            this.get().node("NPC", "Example", "PhaseOne", "Commands", "Win").set(Arrays.asList("broadcast %p% beat an npc"));
+            this.get().node("NPC", "Example", "PhaseOne", "Commands", "Lose").set(Arrays.asList("broadcast %p% lost to an npc"));
+            this.get().node("NPC", "Example", "PhaseOne", "Money", "Win").set(100);
+            this.get().node("NPC", "Example", "PhaseOne", "Money", "Lose").set(100);
+            this.get().node("NPC", "Example", "PhaseOne", "Message", "Win").set("Won");
+            this.get().node("NPC", "Example", "PhaseOne", "Message", "Lose").set("Lost");
+            this.get().node("NPC", "Example", "PhaseOne", "BattleType").set("Single");
             this.get().node("NPC", "Example", "PhaseOne", "Team", "Ninetales", "PokemonName").set("Ninetales");
+            this.get().node("NPC", "Example", "PhaseOne", "Team", "Ninetales", "Level").set(10).comment("The Pokemons level");
+            this.get().node("NPC", "Example", "PhaseOne", "Team", "Ninetales", "Gender").set("Female").comment("The Pokemons Gender");
             this.get().node("NPC", "Example", "PhaseOne", "Team", "Ninetales", "HeldItem").set("pixelmon:leftovers");
             this.get().node("NPC", "Example", "PhaseOne", "Team", "Ninetales", "Form").set(0).comment("Decide the form for this pokemon, leave blank if none are to be set");
             this.get().node("NPC", "Example", "PhaseOne", "Team", "Ninetales", "NickName").set("").comment("Set the Pokemons Nick Name in Battle!");

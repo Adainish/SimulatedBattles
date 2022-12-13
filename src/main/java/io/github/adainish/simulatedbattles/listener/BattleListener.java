@@ -23,7 +23,7 @@ public class BattleListener {
                 if (phase != null) {
                     Player player = PlayerStorage.getPlayer(event.player.getUniqueID());
                     if (player != null) {
-                        player.playerWin(event.player, phase.prizeMoney, phase.winMessage);
+                        player.playerWin(event.player, phase.prizeMoney, phase.winMessage, phase.winCommands);
                     }
                 }
             }
@@ -42,7 +42,7 @@ public class BattleListener {
                 if (phase != null) {
                     Player player = PlayerStorage.getPlayer(event.player.getUniqueID());
                     if (player != null) {
-                        player.whiteOut(event.player, phase.prizeMoney, phase.loseMessage);
+                        player.whiteOut(event.player, phase.loseMoney, phase.loseMessage, phase.loseCommands);
                     }
                 }
             }
