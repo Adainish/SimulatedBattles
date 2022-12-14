@@ -60,6 +60,7 @@ public class Player {
     public void playerWin(ServerPlayerEntity playerEntity, int amount, String winMessage, List <String> commands)
     {
         EconomyUtil.giveBalance(uuid, amount);
+        Util.send(playerEntity.getUniqueID(), winMessage);
         if (commands.isEmpty())
             return;
         for (String s:commands) {
@@ -73,14 +74,15 @@ public class Player {
             healer.teleport(playerEntity);
         }
         EconomyUtil.takeBalance(uuid, amount);
+        //send dialogue maybe with a message?
+        PlayerPartyStorage storage = StorageProxy.getParty(uuid);
+        storage.heal();
+        Util.send(playerEntity.getUniqueID(), losingMessage);
         if (commands.isEmpty())
             return;
         for (String s:commands) {
             Util.runCommand(s.replace("%p%", playerEntity.getName().getUnformattedComponentText()));
         }
-        //send dialogue maybe with a message?
-        PlayerPartyStorage storage = StorageProxy.getParty(uuid);
-        storage.heal();
     }
 
 }
