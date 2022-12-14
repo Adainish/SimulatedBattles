@@ -9,14 +9,19 @@ import com.pixelmonmod.pixelmon.battles.api.rules.BattleRules;
 import com.pixelmonmod.pixelmon.battles.controller.participants.BattleParticipant;
 import com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant;
 import com.pixelmonmod.pixelmon.battles.controller.participants.TrainerParticipant;
+import com.pixelmonmod.pixelmon.comm.SetTrainerData;
 import com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer;
+import com.pixelmonmod.pixelmon.entities.npcs.registry.BaseTrainer;
+import com.pixelmonmod.pixelmon.entities.npcs.registry.TrainerChat;
 import info.pixelmon.repack.org.spongepowered.serialize.SerializationException;
 import io.github.adainish.simulatedbattles.SimulatedBattles;
 import io.github.adainish.simulatedbattles.conf.Config;
 import io.leangen.geantyref.TypeToken;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Phase {
@@ -100,11 +105,13 @@ public class Phase {
         }
 
         npcTrainer.setName(npcName);
+        ItemStack[] emptyArray = new ItemStack[]{};
+        SetTrainerData setTrainerData = new SetTrainerData(npcName, "", winMessage, loseMessage, 0, emptyArray, new BattleRules(battleType));
+        npcTrainer.update(setTrainerData);
         npcTrainer.getPersistentData().putBoolean("simulatedBattleNPC", true);
         npcTrainer.getPersistentData().putString("npcID", npcID);
         npcTrainer.getPersistentData().putString("phaseID", identifier);
-        npcTrainer.winMessage = winMessage;
-        npcTrainer.loseMessage = loseMessage;
+
 
         return npcTrainer;
     }
